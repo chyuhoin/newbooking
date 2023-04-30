@@ -1,6 +1,6 @@
 {
   "name": "zhy-booking",
-  "script": "./target/server-0.0.1",
+  "script": "./server-0.0.1",
   "exec_interpreter": "",
   "exec_mode": "fork"
 }
