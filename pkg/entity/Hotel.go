@@ -8,4 +8,5 @@ type Hotel struct {
 	Location string  `json:"location"`
 	Rating   float64 `json:"rating"`
 	Star     int8    `json:"star"`
+	Distance float64 `json:"distance"`
 }
