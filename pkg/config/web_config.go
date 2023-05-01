@@ -10,6 +10,7 @@ func RouterConfig(router *gin.Engine) {
 	router.Use(middleware.JWTAuth())
 	userController := controller.NewUserController()
 	hotelController := controller.NewHotelController()
+	detailController := controller.NewDetailController()
 
 	router.POST("/login", userController.Login)
 	router.GET("/users", userController.Users)
@@ -17,5 +18,8 @@ func RouterConfig(router *gin.Engine) {
 	hotel := router.Group("/hotel")
 	hotel.GET("/list", hotelController.List)
 	hotel.GET("/search", hotelController.Search)
+
+	detail := router.Group("/detail")
+	detail.GET("/images", detailController.Images)
 
 }
