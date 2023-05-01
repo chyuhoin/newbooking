@@ -17,7 +17,7 @@ func NewDetailMapper() *DetailMapper {
 
 func (mapper *DetailMapper) GetImagesByHotelId(hotelId int) (*entity.ImageGroup, error) {
 	imageList := make([]string, 0)
-	err := mapper.engine.Where(builder.Eq{"hotel_id": hotelId}).Cols("image").Find(&imageList)
+	err := mapper.engine.Table("t_image").Where(builder.Eq{"hotel_id": hotelId}).Cols("image").Find(&imageList)
 	if err != nil {
 		return &entity.ImageGroup{}, err
 	}

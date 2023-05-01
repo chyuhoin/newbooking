@@ -20,6 +20,10 @@ func (ctl *DetailController) Images(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": "Wrong number"})
 	}
-	images := ctl.service.ViewImages(hotelId)
-	c.JSON(http.StatusOK, gin.H{"msg": "success", "images": images.Images})
+	images, err := ctl.service.ViewImages(hotelId)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "database crashed", "info": err.Error()})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"msg": "success", "images": images.Images})
+	}
 }

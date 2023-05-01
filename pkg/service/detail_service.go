@@ -13,10 +13,6 @@ func NewDetailService() *DetailService {
 	return &DetailService{detailMapper: dao.NewDetailMapper()}
 }
 
-func (service *DetailService) ViewImages(hotelId int) *entity.ImageGroup {
-	images, err := service.detailMapper.GetImagesByHotelId(hotelId)
-	if err != nil {
-		return nil
-	}
-	return images
+func (service *DetailService) ViewImages(hotelId int) (*entity.ImageGroup, error) {
+	return service.detailMapper.GetImagesByHotelId(hotelId)
 }
