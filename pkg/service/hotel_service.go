@@ -13,20 +13,20 @@ func NewHotelService() *HotelService {
 	return &HotelService{dao.NewHotelMapper()}
 }
 
-func (service *HotelService) SearchId(id int) *entity.Hotel {
+func (service *HotelService) SearchId(id int) (*entity.Hotel, error) {
 	hotel, err := service.userMapper.GetHotelById(id)
 	if err != nil {
-		return nil
+		return nil, err
 	}
-	return hotel
+	return hotel, nil
 }
 
-func (service *HotelService) SearchFuzzy(hotel *entity.Hotel) *[]*entity.Hotel {
+func (service *HotelService) SearchFuzzy(hotel *entity.Hotel) (*[]*entity.Hotel, error) {
 	hotels, err := service.userMapper.GetHotelsByHotelFuzzy(hotel)
 	if err != nil {
-		return nil
+		return nil, err
 	}
-	return hotels
+	return hotels, nil
 }
 
 func (service *HotelService) SearchRoom(in *string, out *string, city *string) (*[]*entity.HotelWithRoom, error) {

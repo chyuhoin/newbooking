@@ -22,7 +22,12 @@ func (ctl *HotelController) List(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
 		return
 	}
-	res := ctl.hotelService.SearchFuzzy(&hotel)
+
+	res, err := ctl.hotelService.SearchFuzzy(&hotel)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "something wrong", "info": err.Error()})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{"msg": "success", "hotels": res})
 }
 
@@ -42,10 +47,11 @@ func (ctl *HotelController) Search(c *gin.Context) {
 	}
 
 	for _, room := range *rooms {
-		cost := room.CalcMinCost(adult, children)
+		cost, method := room.CalcMinCost(adult, children)
 		hotel := make(map[string]interface{})
 		hotel["info"] = room.Hotel
 		hotel["cost"] = cost
+		hotel["method"] = method
 		hotels = append(hotels, hotel)
 	}
 
