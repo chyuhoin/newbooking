@@ -21,5 +21,6 @@ func RouterConfig(router *gin.Engine) {
 
 	detail := router.Group("/detail")
 	detail.GET("/images", detailController.Images)
+	detail.GET("/description", detailController.Description)
 
 }

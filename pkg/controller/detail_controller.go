@@ -27,3 +27,16 @@ func (ctl *DetailController) Images(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"msg": "success", "images": images.Images})
 	}
 }
+
+func (ctl *DetailController) Description(c *gin.Context) {
+	hotelId, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "Wrong number"})
+	}
+	description, err := ctl.service.GetDescription(hotelId)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "database crashed", "info": err.Error()})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"msg": "success", "description": description})
+	}
+}
