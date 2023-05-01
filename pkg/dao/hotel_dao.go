@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"newbooking/pkg/entity"
 	"newbooking/pkg/utils"
-	"time"
 	"xorm.io/builder"
 	"xorm.io/xorm"
 )
@@ -38,7 +37,7 @@ func (mapper *HotelMapper) GetHotelsByHotelFuzzy(hotel *entity.Hotel) (*[]*entit
 	return &hotelList, err
 }
 
-func (mapper *HotelMapper) GetHotelRoom(in *time.Time, out *time.Time, city *string) (*[]*RoomTmp, error) {
+func (mapper *HotelMapper) GetHotelRoom(in *string, out *string, city *string) (*[]*RoomTmp, error) {
 	hotelList := make([]*RoomTmp, 0)
 	SQL := `
 	SELECT * FROM (
@@ -69,7 +68,7 @@ func (mapper *HotelMapper) GetHotelRoom(in *time.Time, out *time.Time, city *str
 					FROM
 						t_hotel
 					WHERE
-						city LIKE'%s'
+						city LIKE '%s'
 				)
 			) rom 
 		ON
@@ -82,7 +81,7 @@ func (mapper *HotelMapper) GetHotelRoom(in *time.Time, out *time.Time, city *str
 	ON
 		TMP.hotel_id = t_hotel.id;
 	`
-	SQL = fmt.Sprintf(SQL, in.Format("2006-01-02"), out.Format("2006-01-02"), "%"+*city+"%")
+	SQL = fmt.Sprintf(SQL, *in, *out, "%"+*city+"%")
 	err := mapper.engine.SQL(SQL).Find(&hotelList)
 	return &hotelList, err
 }

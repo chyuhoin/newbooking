@@ -6,7 +6,6 @@ import (
 	"newbooking/pkg/entity"
 	"newbooking/pkg/service"
 	"strconv"
-	"time"
 )
 
 type HotelController struct {
@@ -29,13 +28,19 @@ func (ctl *HotelController) List(c *gin.Context) {
 
 func (ctl *HotelController) Search(c *gin.Context) {
 	dest := c.Query("dest")
-	checkin, _ := time.Parse("2006-01-01", c.Query("checkin"))
-	checkout, _ := time.Parse("2006-01-01", c.Query("checkout"))
+	checkin := c.Query("checkin")
+	checkout := c.Query("checkout")
 	adult, _ := strconv.Atoi(c.Query("adult"))
 	children, _ := strconv.Atoi(c.Query("children"))
 
 	hotels := make([]map[string]interface{}, 0)
-	rooms := ctl.hotelService.SearchRoom(&checkin, &checkout, &dest)
+	rooms, err := ctl.hotelService.SearchRoom(&checkin, &checkout, &dest)
+
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "something wrong", "info": err.Error()})
+		return
+	}
+
 	for _, room := range *rooms {
 		cost := room.CalcMinCost(adult, children)
 		hotel := make(map[string]interface{})

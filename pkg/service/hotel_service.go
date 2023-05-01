@@ -3,7 +3,6 @@ package service
 import (
 	"newbooking/pkg/dao"
 	"newbooking/pkg/entity"
-	"time"
 )
 
 type HotelService struct {
@@ -30,11 +29,11 @@ func (service *HotelService) SearchFuzzy(hotel *entity.Hotel) *[]*entity.Hotel {
 	return hotels
 }
 
-func (service *HotelService) SearchRoom(in *time.Time, out *time.Time, city *string) *[]*entity.HotelWithRoom {
+func (service *HotelService) SearchRoom(in *string, out *string, city *string) (*[]*entity.HotelWithRoom, error) {
 	roomList := make([]*entity.HotelWithRoom, 0)
 	rooms, err := service.userMapper.GetHotelRoom(in, out, city)
 	if err != nil {
-		return nil
+		return nil, err
 	}
 	for _, room := range *rooms {
 		tmp := room.Room
@@ -47,5 +46,5 @@ func (service *HotelService) SearchRoom(in *time.Time, out *time.Time, city *str
 			})
 		}
 	}
-	return &roomList
+	return &roomList, nil
 }

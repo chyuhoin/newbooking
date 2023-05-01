@@ -19,24 +19,26 @@ func (ctl *DetailController) Images(c *gin.Context) {
 	hotelId, err := strconv.Atoi(c.Query("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": "Wrong number"})
+		return
 	}
 	images, err := ctl.service.ViewImages(hotelId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": "database crashed", "info": err.Error()})
-	} else {
-		c.JSON(http.StatusOK, gin.H{"msg": "success", "images": images.Images})
+		return
 	}
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "images": images.Images})
 }
 
 func (ctl *DetailController) Description(c *gin.Context) {
 	hotelId, err := strconv.Atoi(c.Query("id"))
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"msg": "Wrong number"})
+		return
 	}
 	description, err := ctl.service.GetDescription(hotelId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": "database crashed", "info": err.Error()})
-	} else {
-		c.JSON(http.StatusOK, gin.H{"msg": "success", "description": description})
+		return
 	}
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "description": description})
 }
