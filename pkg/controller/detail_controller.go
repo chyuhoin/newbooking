@@ -42,3 +42,17 @@ func (ctl *DetailController) Description(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"msg": "success", "description": description})
 }
+
+func (ctl *DetailController) Policy(c *gin.Context) {
+	hotelId, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"msg": "Wrong number"})
+		return
+	}
+	policy, err := ctl.service.GetPolicy(hotelId)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "database crashed", "info": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "policy": policy})
+}

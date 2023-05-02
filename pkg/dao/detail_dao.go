@@ -31,3 +31,9 @@ func (mapper *DetailMapper) GetImagesByHotelId(hotelId int) (*entity.ImageGroup,
 		Images:  &imageList,
 	}, err
 }
+
+func (mapper *DetailMapper) GetPolicyByHotelId(hotelId int) (*entity.Policy, error) {
+	var policy entity.Policy
+	_, err := mapper.engine.Table("t_policy").Where(builder.Eq{"id": hotelId}).Get(&policy)
+	return &policy, err
+}

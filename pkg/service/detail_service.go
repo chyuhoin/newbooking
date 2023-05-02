@@ -20,3 +20,7 @@ func (service *DetailService) GetDescription(hotelId int) (*string, error) {
 func (service *DetailService) ViewImages(hotelId int) (*entity.ImageGroup, error) {
 	return service.detailMapper.GetImagesByHotelId(hotelId)
 }
+
+func (service *DetailService) GetPolicy(hotelId int) (*entity.Policy, error) {
+	return service.detailMapper.GetPolicyByHotelId(hotelId)
+}
