@@ -24,3 +24,7 @@ func (service *DetailService) ViewImages(hotelId int) (*entity.ImageGroup, error
 func (service *DetailService) GetPolicy(hotelId int) (*entity.Policy, error) {
 	return service.detailMapper.GetPolicyByHotelId(hotelId)
 }
+
+func (service *DetailService) GetNotes(hotelId int) (*entity.Notes, error) {
+	return service.detailMapper.GetNotesByHotelId(hotelId)
+}

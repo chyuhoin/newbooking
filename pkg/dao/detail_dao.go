@@ -37,3 +37,9 @@ func (mapper *DetailMapper) GetPolicyByHotelId(hotelId int) (*entity.Policy, err
 	_, err := mapper.engine.Table("t_policy").Where(builder.Eq{"id": hotelId}).Get(&policy)
 	return &policy, err
 }
+
+func (mapper *DetailMapper) GetNotesByHotelId(hotelId int) (*entity.Notes, error) {
+	var notes entity.Notes
+	_, err := mapper.engine.Table("t_note").Where(builder.Eq{"id": hotelId}).Get(&notes)
+	return &notes, err
+}
