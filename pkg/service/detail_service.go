@@ -28,3 +28,7 @@ func (service *DetailService) GetPolicy(hotelId int) (*entity.Policy, error) {
 func (service *DetailService) GetNotes(hotelId int) (*entity.Notes, error) {
 	return service.detailMapper.GetNotesByHotelId(hotelId)
 }
+
+func (service *DetailService) GetRooms(hotelId int) (*[]*entity.Room, error) {
+	return service.detailMapper.GetRoomsByHotelId(hotelId)
+}
