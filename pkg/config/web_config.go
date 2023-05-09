@@ -13,6 +13,7 @@ func RouterConfig(router *gin.Engine) {
 	detailController := controller.NewDetailController()
 
 	router.POST("/login", userController.Login)
+	router.POST("/register", userController.Register)
 	router.GET("/users", userController.Users)
 
 	hotel := router.Group("/hotel")

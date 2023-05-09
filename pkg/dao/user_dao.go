@@ -42,6 +42,11 @@ func (mapper *UserMapper) GetAllUsers() ([]*entity.User, error) {
 }
 
 func (mapper *UserMapper) InsertUser(user *entity.User) (bool, error) {
-	num, err := mapper.engine.Insert(user)
-	return num > 0, err
+	sql := "INSERT INTO t_user (username, password, role) VALUES (?, ?, ?)"
+	res, err := mapper.engine.Exec(sql, user.Username, user.Password, user.Role)
+	if err != nil {
+		return false, err
+	}
+	rows, err2 := res.RowsAffected()
+	return rows > 0, err2
 }
