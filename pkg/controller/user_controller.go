@@ -40,7 +40,7 @@ func (ctl *UserController) Register(c *gin.Context) {
 	if ok, err := ctl.userService.RegisterByNameAndPassword(&user.Username, &user.Password); ok {
 		c.JSON(http.StatusOK, gin.H{"msg": "success"})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"msg": "failed", "reason": err.Error()})
+		c.JSON(http.StatusOK, gin.H{"msg": err.Error()})
 	}
 }
 
