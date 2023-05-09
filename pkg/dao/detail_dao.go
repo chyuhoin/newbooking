@@ -46,6 +46,9 @@ func (mapper *DetailMapper) GetNotesByHotelId(hotelId int) (*entity.Notes, error
 
 func (mapper *DetailMapper) GetRoomsByHotelId(hotelId int) (*[]*entity.Room, error) {
 	rooms := make([]*entity.Room, 0)
-	err := mapper.engine.Table("t_room").Where(builder.Eq{"hotel_id": hotelId}).Find(&rooms)
+	err := mapper.engine.Table("t_room").
+		Where(builder.Eq{"hotel_id": hotelId}).
+		Cols("id", "hotel_id", "name", "bed", "capacity", "price", "num").
+		Find(&rooms)
 	return &rooms, err
 }
