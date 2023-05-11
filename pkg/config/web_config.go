@@ -11,6 +11,7 @@ func RouterConfig(router *gin.Engine) {
 	userController := controller.NewUserController()
 	hotelController := controller.NewHotelController()
 	detailController := controller.NewDetailController()
+	registerController := controller.NewRegisterController()
 
 	router.POST("/login", userController.Login)
 	router.POST("/register", userController.Register)
@@ -26,5 +27,8 @@ func RouterConfig(router *gin.Engine) {
 	detail.GET("/policy", detailController.Policy)
 	detail.GET("/notes", detailController.Notes)
 	detail.GET("/room", detailController.Room)
+
+	book := router.Group("/book")
+	book.GET("", registerController.GetBooking)
 
 }
