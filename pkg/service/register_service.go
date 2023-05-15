@@ -16,3 +16,7 @@ func NewRegisterService() *RegisterService {
 func (service *RegisterService) GetMyRegister(userId string) (*[]*entity.Register, error) {
 	return service.registerMapper.GetRegisterByUserId(userId)
 }
+
+func (service *RegisterService) AddOneRegister(register *entity.Register) error {
+	return service.registerMapper.InsertRegister(register)
+}

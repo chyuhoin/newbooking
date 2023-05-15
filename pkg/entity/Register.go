@@ -2,11 +2,11 @@ package entity
 
 type Register struct {
 	Id             string `xorm:"id" json:"id,omitempty"`
-	RoomId         string `xorm:"roomId" json:"roomId,omitempty"`
-	StartTime      string `xorm:"startTime" json:"startTime,omitempty"`
-	EndTime        string `xorm:"endTime" json:"endTime,omitempty"`
-	UserId         string `xorm:"userId" json:"userId,omitempty"`
-	BName          string `xorm:"b_name" json:"BName,omitempty"`
+	RoomId         string `xorm:"room_id" json:"roomId,omitempty"`
+	StartTime      string `xorm:"start_time" json:"startTime,omitempty"`
+	EndTime        string `xorm:"end_time" json:"endTime,omitempty"`
+	UserId         string `xorm:"user_id" json:"userId,omitempty"`
+	BookerName     string `xorm:"b_name" json:"bookerName,omitempty"`
 	BookerEmail    string `xorm:"b_email" json:"bookerEmail,omitempty"`
 	BookerState    string `xorm:"b_state" json:"bookerState,omitempty"`
 	BookerPhone    string `xorm:"b_phone" json:"bookerPhone,omitempty"`

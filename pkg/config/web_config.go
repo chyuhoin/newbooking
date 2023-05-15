@@ -30,5 +30,6 @@ func RouterConfig(router *gin.Engine) {
 
 	book := router.Group("/book")
 	book.GET("", registerController.GetBooking)
+	book.POST("", registerController.PostBooking)
 
 }
