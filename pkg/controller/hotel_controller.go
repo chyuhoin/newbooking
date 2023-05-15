@@ -17,10 +17,11 @@ func NewHotelController() *HotelController {
 }
 
 func (ctl *HotelController) List(c *gin.Context) {
-	var hotel = entity.Hotel{}
-	if err := c.ShouldBindJSON(&hotel); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
-		return
+	var hotel = entity.Hotel{
+		Name:     c.Query("name"),
+		Province: c.Query("province"),
+		City:     c.Query("city"),
+		Location: c.Query("location"),
 	}
 
 	res, err := ctl.hotelService.SearchFuzzy(&hotel)
