@@ -6,7 +6,7 @@ import (
 )
 
 type HotelService struct {
-	userMapper *dao.HotelMapper
+	hotelMapper *dao.HotelMapper
 }
 
 func NewHotelService() *HotelService {
@@ -14,7 +14,7 @@ func NewHotelService() *HotelService {
 }
 
 func (service *HotelService) SearchId(id int) (*entity.Hotel, error) {
-	hotel, err := service.userMapper.GetHotelById(id)
+	hotel, err := service.hotelMapper.GetHotelById(id)
 	if err != nil {
 		return nil, err
 	}
@@ -22,7 +22,7 @@ func (service *HotelService) SearchId(id int) (*entity.Hotel, error) {
 }
 
 func (service *HotelService) SearchFuzzy(hotel *entity.Hotel) (*[]*entity.Hotel, error) {
-	hotels, err := service.userMapper.GetHotelsByHotelFuzzy(hotel)
+	hotels, err := service.hotelMapper.GetHotelsByHotelFuzzy(hotel)
 	if err != nil {
 		return nil, err
 	}
@@ -31,7 +31,7 @@ func (service *HotelService) SearchFuzzy(hotel *entity.Hotel) (*[]*entity.Hotel,
 
 func (service *HotelService) SearchRoom(in *string, out *string, city *string) (*[]*entity.HotelWithRoom, error) {
 	roomList := make([]*entity.HotelWithRoom, 0)
-	rooms, err := service.userMapper.GetHotelRoom(in, out, city)
+	rooms, err := service.hotelMapper.GetHotelRoom(in, out, city)
 	if err != nil {
 		return nil, err
 	}
