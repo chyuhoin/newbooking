@@ -20,3 +20,11 @@ func (service *RegisterService) GetMyRegister(userId string) (*[]*entity.Registe
 func (service *RegisterService) AddOneRegister(register *entity.Register) error {
 	return service.registerMapper.InsertRegister(register)
 }
+
+func (service *RegisterService) CancelRegister(register *entity.Register) error {
+	return service.registerMapper.RemoveRegister(register)
+}
+
+func (service *RegisterService) ModifyRegisterTime(register *entity.Register) error {
+	return service.registerMapper.UpdateRegisterTime(register)
+}

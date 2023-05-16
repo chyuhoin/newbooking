@@ -33,3 +33,13 @@ INSERT INTO "t_register"
 		register.Plan)
 	return err
 }
+
+func (mapper *RegisterMapper) RemoveRegister(register *entity.Register) error {
+	_, err := mapper.engine.ID(register.Id).Cols("is_deleted").Update(register)
+	return err
+}
+
+func (mapper *RegisterMapper) UpdateRegisterTime(register *entity.Register) error {
+	_, err := mapper.engine.ID(register.Id).Cols("start_time", "end_time").Update(register)
+	return err
+}
