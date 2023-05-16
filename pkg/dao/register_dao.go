@@ -35,11 +35,16 @@ INSERT INTO "t_register"
 }
 
 func (mapper *RegisterMapper) RemoveRegister(register *entity.Register) error {
-	_, err := mapper.engine.ID(register.Id).Cols("is_deleted").Update(register)
+	_, err := mapper.engine.ID(register.Id).Cols("is_deleted").
+		Update(&entity.Register{IsDeleted: true})
 	return err
 }
 
 func (mapper *RegisterMapper) UpdateRegisterTime(register *entity.Register) error {
-	_, err := mapper.engine.ID(register.Id).Cols("start_time", "end_time").Update(register)
+	_, err := mapper.engine.ID(register.Id).Cols("start_time", "end_time").
+		Update(&entity.Register{
+			StartTime: register.StartTime,
+			EndTime:   register.EndTime,
+		})
 	return err
 }
