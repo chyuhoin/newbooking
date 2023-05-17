@@ -58,3 +58,13 @@ func (ctl *HotelController) Search(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"msg": "success", "hotels": hotels})
 }
+
+func (ctl *HotelController) Room(c *gin.Context) {
+	id := c.Query("id")
+	room, hotel, err := ctl.hotelService.SearchRoomAndHotelByRoomId(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "something wrong", "info": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"msg": "success", "room": room, "hotel": hotel})
+}

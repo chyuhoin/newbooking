@@ -8,5 +8,5 @@ type Room struct {
 	Capacity string  `json:"capacity"`
 	Price    float64 `json:"price"`
 	Num      int     `json:"num"`
-	Remain   int     `json:"remain"`
+	Remain   int     `json:"remain" xorm:"-"`
 }

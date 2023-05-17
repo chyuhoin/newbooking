@@ -20,6 +20,7 @@ func RouterConfig(router *gin.Engine) {
 	hotel := router.Group("/hotel")
 	hotel.GET("/list", hotelController.List)
 	hotel.GET("/search", hotelController.Search)
+	hotel.GET("/room", hotelController.Room)
 
 	detail := router.Group("/detail")
 	detail.GET("/images", detailController.Images)

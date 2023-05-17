@@ -48,3 +48,15 @@ func (service *HotelService) SearchRoom(in *string, out *string, city *string) (
 	}
 	return &roomList, nil
 }
+
+func (service *HotelService) SearchRoomAndHotelByRoomId(roomId string) (entity.Room, entity.Hotel, error) {
+	room, err := service.hotelMapper.GetRoomByRoomId(roomId)
+	if err != nil {
+		return entity.Room{}, entity.Hotel{}, err
+	}
+	hotel, err := service.hotelMapper.GetHotelByHotelId(room.HotelId)
+	if err != nil {
+		return entity.Room{}, entity.Hotel{}, err
+	}
+	return room, hotel, nil
+}
