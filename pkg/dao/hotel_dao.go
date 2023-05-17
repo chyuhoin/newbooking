@@ -88,7 +88,9 @@ func (mapper *HotelMapper) GetHotelRoom(in *string, out *string, city *string) (
 
 func (mapper *HotelMapper) GetRoomByRoomId(roomId string) (entity.Room, error) {
 	var room entity.Room
-	_, err := mapper.engine.Where(builder.Eq{"id": roomId}).Get(&room)
+	_, err := mapper.engine.
+		Cols("id", "hotel_id", "name", "bed", "capacity", "price", "num").
+		Where(builder.Eq{"id": roomId}).Get(&room)
 	return room, err
 }
 
