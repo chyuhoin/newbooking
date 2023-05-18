@@ -1,19 +1,33 @@
 package middleware
 
 import (
+	"bufio"
+	"encoding/json"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"newbooking/pkg/utils"
+	"os"
+	"strings"
 )
+
+type whiteList struct {
+	Whitelist []string
+}
 
 func JWTAuth() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		//过滤是否验证token， 示例代码没有完整设置白名单路径
-		enableUrl := make([]string, 0)
-		enableUrl = append(enableUrl, "/login")
-		enableUrl = append(enableUrl, "/register")
+		//过滤是否验证token
+		list, err := getWhiteList("whitelist.json")
+		if err != nil {
+			panic("no whitelist")
+			return
+		}
+		enableUrl := list.Whitelist
+		fmt.Println(enableUrl)
 		for _, url := range enableUrl {
-			if url == c.Request.RequestURI {
+			fmt.Println(url, strings.Split(c.Request.RequestURI, "?")[0])
+			if url == strings.Split(c.Request.RequestURI, "?")[0] {
 				return
 			}
 		}
@@ -50,4 +64,23 @@ func JWTAuth() gin.HandlerFunc {
 		// 继续交由下一个路由处理,并将解析出的信息传递下去
 		c.Set(utils.GinContextKey, claims)
 	}
+}
+
+func getWhiteList(path string) (*whiteList, error) {
+	file, err := os.Open(path)
+	if err != nil {
+		panic(err)
+	}
+
+	defer file.Close()
+
+	reader := bufio.NewReader(file)
+	decoder := json.NewDecoder(reader)
+
+	var wl whiteList
+
+	if err = decoder.Decode(&wl); err != nil {
+		return nil, err
+	}
+	return &wl, nil
 }

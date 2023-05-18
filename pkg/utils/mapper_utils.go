@@ -21,6 +21,7 @@ func GetOrmEngine() *xorm.Engine {
 
 	info, err := parseConfig("database_config.json")
 	if err != nil {
+		panic("no database config")
 		return nil
 	}
 	initEngine(info)
