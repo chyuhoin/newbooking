@@ -29,9 +29,9 @@ func (service *HotelService) SearchFuzzy(hotel *entity.Hotel) (*[]*entity.Hotel,
 	return hotels, nil
 }
 
-func (service *HotelService) SearchRoom(in *string, out *string, name *string, dest *string, city *string, province *string) (*[]*entity.HotelWithRoom, error) {
+func (service *HotelService) SearchRoom(in *string, out *string, dest *string, city *string, province *string) (*[]*entity.HotelWithRoom, error) {
 	roomList := make([]*entity.HotelWithRoom, 0)
-	rooms, err := service.hotelMapper.GetHotelRoom(in, out, name, dest, city, province)
+	rooms, err := service.hotelMapper.GetHotelRoom(in, out, dest, city, province)
 	if err != nil {
 		return nil, err
 	}
