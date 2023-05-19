@@ -34,13 +34,15 @@ func (ctl *HotelController) List(c *gin.Context) {
 
 func (ctl *HotelController) Search(c *gin.Context) {
 	dest := c.Query("dest")
+	city := c.Query("city")
+	province := c.Query("province")
 	checkin := c.Query("checkin")
 	checkout := c.Query("checkout")
 	adult, _ := strconv.Atoi(c.Query("adult"))
 	children, _ := strconv.Atoi(c.Query("children"))
 
 	hotels := make([]map[string]interface{}, 0)
-	rooms, err := ctl.hotelService.SearchRoom(&checkin, &checkout, &dest)
+	rooms, err := ctl.hotelService.SearchRoom(&checkin, &checkout, &dest, &city, &province)
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"msg": "something wrong", "info": err.Error()})

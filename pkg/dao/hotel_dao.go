@@ -37,7 +37,7 @@ func (mapper *HotelMapper) GetHotelsByHotelFuzzy(hotel *entity.Hotel) (*[]*entit
 	return &hotelList, err
 }
 
-func (mapper *HotelMapper) GetHotelRoom(in *string, out *string, city *string) (*[]*RoomTmp, error) {
+func (mapper *HotelMapper) GetHotelRoom(in *string, out *string, dest *string, city *string, province *string) (*[]*RoomTmp, error) {
 	hotelList := make([]*RoomTmp, 0)
 	SQL := `
 	SELECT * FROM (
@@ -68,7 +68,7 @@ func (mapper *HotelMapper) GetHotelRoom(in *string, out *string, city *string) (
 					FROM
 						t_hotel
 					WHERE
-						city LIKE '%s'
+						(location LIKE '%s' AND city LIKE '%s' AND province LIKE '%s')
 				)
 			) rom 
 		ON
@@ -81,7 +81,7 @@ func (mapper *HotelMapper) GetHotelRoom(in *string, out *string, city *string) (
 	ON
 		TMP.hotel_id = t_hotel.id;
 	`
-	SQL = fmt.Sprintf(SQL, *in, *out, "%"+*city+"%")
+	SQL = fmt.Sprintf(SQL, *in, *out, "%"+*dest+"%", "%"+*city+"%", "%"+*province+"%")
 	err := mapper.engine.SQL(SQL).Find(&hotelList)
 	return &hotelList, err
 }
