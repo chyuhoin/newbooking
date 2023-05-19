@@ -1,0 +1,9 @@
+{
+  "whitelist": [
+    "/login",
+    "/register",
+    "/hotel/list",
+    "/hotel/search",
+    "/hotel/room"
+  ]
+}
