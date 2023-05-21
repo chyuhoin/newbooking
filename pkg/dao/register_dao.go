@@ -48,3 +48,10 @@ func (mapper *RegisterMapper) UpdateRegisterTime(register *entity.Register) erro
 		})
 	return err
 }
+
+func (mapper *RegisterMapper) GetRegisterByHotelId(hotelId int) (*[]*entity.Register, error) {
+	regs := make([]*entity.Register, 0)
+	err := mapper.engine.In("room_id", builder.Select("id").
+		From("t_room").Where(builder.Eq{"hotel_id": hotelId})).Find(&regs)
+	return &regs, err
+}

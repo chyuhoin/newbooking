@@ -60,3 +60,11 @@ func (service *HotelService) SearchRoomAndHotelByRoomId(roomId string) (entity.R
 	}
 	return room, hotel, nil
 }
+
+func (service *HotelService) SearchHotelByDest(dest string) (*[]*entity.Hotel, error) {
+	return service.hotelMapper.GetHotelByDest(&dest)
+}
+
+func (service *HotelService) RemoveOneHotel(id int) error {
+	return service.hotelMapper.RemoveHotelById(id)
+}

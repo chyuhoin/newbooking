@@ -99,3 +99,14 @@ func (mapper *HotelMapper) GetHotelByHotelId(hotelId int) (entity.Hotel, error) 
 	_, err := mapper.engine.Where(builder.Eq{"id": hotelId}).Get(&hotel)
 	return hotel, err
 }
+
+func (mapper *HotelMapper) GetHotelByDest(dest *string) (*[]*entity.Hotel, error) {
+	hotels := make([]*entity.Hotel, 0)
+	err := mapper.engine.Where(builder.Like{"name", *dest}.Or(builder.Like{"location", *dest})).Find(&hotels)
+	return &hotels, err
+}
+
+func (mapper *HotelMapper) RemoveHotelById(hotelId int) error {
+	_, err := mapper.engine.Delete(&entity.Hotel{Id: hotelId})
+	return err
+}

@@ -28,3 +28,7 @@ func (service *RegisterService) CancelRegister(register *entity.Register) error 
 func (service *RegisterService) ModifyRegisterTime(register *entity.Register) error {
 	return service.registerMapper.UpdateRegisterTime(register)
 }
+
+func (service *RegisterService) ListRegisterByHotel(id int) (*[]*entity.Register, error) {
+	return service.registerMapper.GetRegisterByHotelId(id)
+}

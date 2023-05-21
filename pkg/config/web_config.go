@@ -12,6 +12,7 @@ func RouterConfig(router *gin.Engine) {
 	hotelController := controller.NewHotelController()
 	detailController := controller.NewDetailController()
 	registerController := controller.NewRegisterController()
+	adminController := controller.NewAdminController()
 
 	router.POST("/login", userController.Login)
 	router.POST("/register", userController.Register)
@@ -34,5 +35,10 @@ func RouterConfig(router *gin.Engine) {
 	book.POST("", registerController.PostBooking)
 	book.DELETE("", registerController.DeleteBooking)
 	book.PUT("", registerController.PutBooking)
+
+	admin := router.Group("/admin")
+	admin.GET("/hotel", adminController.Hotel)
+	admin.DELETE("/hotel", adminController.DeleteHotel)
+	admin.GET("/register", adminController.HotelRegister)
 
 }
