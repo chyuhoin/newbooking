@@ -52,3 +52,7 @@ func (service *UserService) UpdateUserInfo(user *entity.User) error {
 func (service *UserService) UpdateUserPassword(user *entity.User) error {
 	return service.userMapper.UpdateUserPassword(user)
 }
+
+func (service *UserService) DeleteUser(id string) error {
+	return service.userMapper.DeleteUserById(id)
+}

@@ -10,6 +10,7 @@ import (
 type AdminController struct {
 	hotelService    *service.HotelService
 	registerService *service.RegisterService
+	userService     *service.UserService
 }
 
 func NewAdminController() *AdminController {
@@ -61,4 +62,16 @@ func (ctl *AdminController) HotelRegister(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"msg": "success", "register": regs})
+}
+
+func (ctl *AdminController) DeleteUser(c *gin.Context) {
+	id := c.Query("id")
+
+	err := ctl.userService.DeleteUser(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"msg": "something wrong", "info": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"msg": "success"})
 }

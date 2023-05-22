@@ -70,3 +70,9 @@ func (mapper *UserMapper) UpdateUserPassword(user *entity.User) error {
 	_, err := mapper.engine.ID(user.Id).Update(newUser)
 	return err
 }
+
+func (mapper *UserMapper) DeleteUserById(id string) error {
+	sql := "DELETE FROM t_user WHERE id = ?"
+	_, err := mapper.engine.Exec(sql, id)
+	return err
+}
