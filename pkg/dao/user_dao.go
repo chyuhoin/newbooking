@@ -50,3 +50,23 @@ func (mapper *UserMapper) InsertUser(user *entity.User) (bool, error) {
 	rows, err2 := res.RowsAffected()
 	return rows > 0, err2
 }
+
+func (mapper *UserMapper) UpdateUser(user *entity.User) error {
+	newUser := entity.User{
+		Email:    user.Email,
+		Phone:    user.Phone,
+		Gender:   user.Gender,
+		Address:  user.Address,
+		Nickname: user.Nickname,
+	}
+	_, err := mapper.engine.ID(user.Id).Update(newUser)
+	return err
+}
+
+func (mapper *UserMapper) UpdateUserPassword(user *entity.User) error {
+	newUser := entity.User{
+		Password: user.Password,
+	}
+	_, err := mapper.engine.ID(user.Id).Update(newUser)
+	return err
+}

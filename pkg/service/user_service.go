@@ -40,3 +40,15 @@ func (service *UserService) RegisterByNameAndPassword(username *string, password
 	user := entity.User{Username: *username, Password: *password, Role: "user"}
 	return service.userMapper.InsertUser(&user)
 }
+
+func (service *UserService) GetOneUserInfo(id string) (*entity.User, error) {
+	return service.userMapper.GetUserById(id)
+}
+
+func (service *UserService) UpdateUserInfo(user *entity.User) error {
+	return service.userMapper.UpdateUser(user)
+}
+
+func (service *UserService) UpdateUserPassword(user *entity.User) error {
+	return service.userMapper.UpdateUserPassword(user)
+}

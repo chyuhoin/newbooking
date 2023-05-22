@@ -18,6 +18,11 @@ func RouterConfig(router *gin.Engine) {
 	router.POST("/register", userController.Register)
 	router.GET("/users", userController.Users)
 
+	user := router.Group("/user")
+	user.GET("/info", userController.UserInfo)
+	user.PUT("/info", userController.PutUser)
+	user.PUT("/password", userController.ChangePassword)
+
 	hotel := router.Group("/hotel")
 	hotel.GET("/list", hotelController.List)
 	hotel.GET("/search", hotelController.Search)
