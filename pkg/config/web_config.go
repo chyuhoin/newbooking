@@ -45,6 +45,6 @@ func RouterConfig(router *gin.Engine) {
 	admin.GET("/hotel", adminController.Hotel)
 	admin.DELETE("/hotel", adminController.DeleteHotel)
 	admin.GET("/register", adminController.HotelRegister)
-	admin.GET("/user", adminController.DeleteUser)
+	admin.DELETE("/user", adminController.DeleteUser)
 
 }
