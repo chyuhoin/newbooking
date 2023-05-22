@@ -17,6 +17,7 @@ func NewAdminController() *AdminController {
 	return &AdminController{
 		hotelService:    service.NewHotelService(),
 		registerService: service.NewRegisterService(),
+		userService:     service.NewUserService(),
 	}
 }
 
