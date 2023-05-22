@@ -68,7 +68,7 @@ func (mapper *HotelMapper) GetHotelRoom(in *string, out *string, dest *string, c
 					FROM
 						t_hotel
 					WHERE
-						((name LIKE '%s' OR location LIKE '%s') AND city LIKE '%s' AND province LIKE '%s')
+						(name LIKE '%s' OR city LIKE '%s' OR province LIKE '%s')
 				)
 			) rom 
 		ON
