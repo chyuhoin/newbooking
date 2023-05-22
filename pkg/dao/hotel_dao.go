@@ -81,7 +81,7 @@ func (mapper *HotelMapper) GetHotelRoom(in *string, out *string, dest *string, c
 	ON
 		TMP.hotel_id = t_hotel.id;
 	`
-	SQL = fmt.Sprintf(SQL, *in, *out, "%"+*dest+"%", "%"+*city+"%", "%"+*province+"%")
+	SQL = fmt.Sprintf(SQL, *in, *out, "%"+*dest+"%")
 	err := mapper.engine.SQL(SQL).Find(&hotelList)
 	return &hotelList, err
 }
